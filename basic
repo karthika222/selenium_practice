@@ -1,0 +1,32 @@
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+
+namespace TestProject1
+{
+    public class Tests
+    {
+        [SetUp]
+        public void Setup()
+        {
+        }
+
+        [Test]
+        public void Test1()
+        {
+            // create a new instance of selenium web driver
+            IWebDriver driver = new ChromeDriver();
+            // Navigate to url
+            driver.Navigate().GoToUrl("https://www.google.com/");
+            //maximize the browser window
+            driver.Manage().Window.Maximize();
+            //find the element
+            IWebElement webElement = driver.FindElement(By.Name("q"));
+            // type in the element
+            webElement.SendKeys("Selenium");
+
+            //click on the element
+            webElement.SendKeys(Keys.Return);
+
+        }
+    }
+}
