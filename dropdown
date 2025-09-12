@@ -1,0 +1,69 @@
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Internal;
+using OpenQA.Selenium.Support.UI;
+
+namespace TestProject1
+{
+    public class Tests
+    {
+        [SetUp]
+        public void Setup()
+        {
+        }
+
+        [Test]
+        /*public void Test1()
+        {
+            // create a new instance of selenium web driver
+            IWebDriver driver = new ChromeDriver();
+            // Navigate to url
+            driver.Navigate().GoToUrl("https://www.google.com/");
+            //maximize the browser window
+            driver.Manage().Window.Maximize();
+            //find the element
+            IWebElement webElement = driver.FindElement(By.Name("q"));
+            // type in the element
+            webElement.SendKeys("Selenium");
+
+            //click on the element
+            webElement.SendKeys(Keys.Return);
+
+        }*/
+
+        /*public void Test2()
+        {
+            IWebDriver driver = new ChromeDriver();
+            driver.Navigate().GoToUrl("http://eaapp.somee.com/");
+            IWebElement loginlink = driver.FindElement(By.Id("loginLink"));
+            loginlink.Click();
+
+            IWebElement txtuser = driver.FindElement(By.Name("UserName"));
+            txtuser.SendKeys("admin");
+            IWebElement pswd = driver.FindElement(By.Id("Password"));
+            pswd.SendKeys("password");
+            // Identifying the login button
+            // IWebElement sub = driver.FindElement(By.CssSelector(".btn.btn-default"));
+            IWebElement sub= driver.FindElement(By.CssSelector("input[type='submit']"));
+
+            sub.Submit();
+
+
+        }*/
+        public void Test3()
+        {
+            IWebDriver driver = new ChromeDriver();
+            driver.Navigate().GoToUrl("file:///D:/OneDrive_Karthika/OneDrive%20-%20Coromandel%20international%20limited/Documents/September%202025/demo.html");
+            driver.FindElement(By.Id("country"));
+            SelectElement se = new SelectElement(driver.FindElement(By.Id("country")));
+           // se.SelectByValue("uk");
+            // se.SelectByValue("india");
+
+            IList<WebElement> so = se.AllSelectedOptions;
+             foreach( IWebElement option in so)
+            {
+                Console.WriteLine(option.Text);
+            }
+        }
+    }
+}
