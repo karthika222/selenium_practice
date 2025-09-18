@@ -1,0 +1,96 @@
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using Practice.Pages;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
+using NUnit.Framework;
+
+namespace Practice
+{
+    public class Copy : IDisposable
+    {
+        private IWebDriver driver;
+
+        [SetUp]
+        public void Setup()
+        {
+            driver = new ChromeDriver();
+            driver.Navigate().GoToUrl("http://eaapp.somee.com/");
+            driver.Manage().Window.Maximize();
+        }
+
+        // Data-driven test method using TestCaseSource
+        [TestCaseSource(nameof(GetTestData))]
+        public void Test(LoginData loginData)
+        {
+            LoginPage lp = new LoginPage(driver);
+            lp.click();  // Assuming this clicks on the login button
+            lp.Login(loginData.UserName, loginData.Password);
+        }
+
+        // Static method to return the test data for data-driven testing
+        public static IEnumerable<LoginData> GetTestData()
+        {
+            string jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "login.json");
+            var jsonString = File.ReadAllText(jsonFilePath);
+            var loginData = JsonSerializer.Deserialize<List<LoginData>>(jsonString);
+
+            foreach (var data in loginData)
+            {
+                yield return data; // Return each login data object one by one for the test case
+            }
+        }
+
+        public void Dispose()
+        {
+            if (driver != null)
+            {
+                driver.Quit();
+               // driver = null;
+            }
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            Dispose();
+        }
+    }
+}
+//----------------------------------------------------------------------------------------------------
+
+
+
+public class LoginData
+{
+    public string UserName { get; set; }
+    public string Password { get; set; }
+}
+//-------------------------------------------------------------------------------------------------------
+//login.json
+[
+  {
+    "UserName": "admin",
+    "Password": "password"
+  },
+  {
+    "UserName": "user1",
+    "Password": "user1pass"
+  },
+  {
+    "UserName": "user2",
+    "Password": "user2pass"
+  }
+]
+
+
+
+
+
+
+
+
+
