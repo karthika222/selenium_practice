@@ -60,31 +60,7 @@ namespace Practice
         }
     }
 }
-//----------------------------------------------------------------------------------------------------
 
-
-
-public class LoginData
-{
-    public string UserName { get; set; }
-    public string Password { get; set; }
-}
-//-------------------------------------------------------------------------------------------------------
-//login.json
-[
-  {
-    "UserName": "admin",
-    "Password": "password"
-  },
-  {
-    "UserName": "user1",
-    "Password": "user1pass"
-  },
-  {
-    "UserName": "user2",
-    "Password": "user2pass"
-  }
-]
 
 
 
