@@ -1,0 +1,47 @@
+
+using OpenQA.Selenium;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Practice.Pages
+{
+    public class LoginPage
+    {
+        private readonly IWebDriver driver;
+
+        public LoginPage(IWebDriver driver)
+        {
+            this.driver = driver;
+        }
+        private IWebElement LoginLink => driver.FindElement(By.Id("loginLink"));
+        private IWebElement UserName => driver.FindElement(By.Id("UserName"));
+        private IWebElement Password => driver.FindElement(By.Id("Password"));
+        // driver.FindElement(By.input())
+        private IWebElement LoginButton => driver.FindElement(By.Id("loginIn"));
+
+        private IWebElement LnkEmployeeDetails => driver.FindElement(By.LinkText("Employee Details"));
+
+        IWebElement LnkManageUsers => driver.FindElement(By.LinkText("Manage Users"));
+
+        IWebElement LnkLogoff => driver.FindElement(By.LinkText("Log off"));
+        public void click()
+        {
+            LoginLink.Click();  
+        }
+        public void Login(string username, string password)
+        {
+            UserName.SendKeys(username);
+            Password.SendKeys(password);
+            LoginButton.Submit();
+        }
+        public (bool employeedetails,bool manageusers) IsLoggedIn()
+        {
+            return (LnkEmployeeDetails.Displayed, LnkManageUsers.Displayed);
+
+        }
+
+    }
+}
